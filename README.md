@@ -35,7 +35,10 @@ Each run pr. browser (simulated user) is given a new HttpSession. Session will b
  trace them easier.
 
 ## Preliminary results
-Instance/autowired/sessionmutex all seem to work the same and as intended [MORE RESEARCH NEEDED]
+Instance/autowired/sessionmutex all seem to work the same and as intended. As the screenshot shows, no more than one
+request is processed in parallell pr. user. Compare this with "no sync" to see the difference.
+
+[MORE RESEARCH NEEDED]
 
 ## Configuration
 Adjust the number of simultaneous requests and response time in [index.jsp](src/main/webapp/index.jsp)
