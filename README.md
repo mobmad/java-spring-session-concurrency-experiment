@@ -15,8 +15,8 @@ might be a better approach than to synchronize on the server-side (see below).
  until the legacy service returns and let another request in. This ***might*** be a problem if the clientside application
  should fire R requests pr user and U users are doing this at the same time. [FEEDBACK/MORE RESEARCH NEEDED]
 
-Synchronization should also work in a clustered environment, as long as sticky sessions are enabled, forwarding each
- session to the same app server/JVM. [FEEDBACK NEEDED]
+Synchronization should also work in a load balanced environment, as long as sticky sessions are enabled, forwarding each
+ session to the same app server/JVM.
 
 ## Run instructions
 
@@ -35,8 +35,12 @@ Each run pr. browser (simulated user) is given a new HttpSession. Session will b
  trace them easier.
 
 ## Preliminary results
-Instance/autowired/sessionmutex all seem to work the same and as intended. As the screenshot shows, no more than one
-request is processed in parallell pr. user. Compare this with "no sync" to see the difference.
+Instance/autowired seem to work the same and as intended. As the screenshot shows, no more than one
+request is processed in parallell pr. user. Compare this with "no sync" to see the difference. Using sessionmutex
+works most of the time, but randomly fails (at least in Jetty) with one of these:
+
+* java.lang.IllegalStateException: Problem scavenging sessions
+* java.lang.IllegalStateException: No SessionManager
 
 [MORE RESEARCH NEEDED]
 

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.util.WebUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +35,10 @@ public class CarRepository
         logger.setContext("nosync").log(QUEUED);
 
         logger.log(PROCESSING);
-        cars = slowLegacyCarRepository.getCars(responseDelay);
+        if (cars.isEmpty())
+        {
+            cars = slowLegacyCarRepository.getCars(responseDelay);
+        }
 
         logger.log(DONE);
         return cars;
@@ -47,7 +51,10 @@ public class CarRepository
         synchronized (LOCK)
         {
             logger.log(PROCESSING);
-            cars = slowLegacyCarRepository.getCars(responseDelay);
+            if (cars.isEmpty())
+            {
+                cars = slowLegacyCarRepository.getCars(responseDelay);
+            }
         }
 
         logger.log(DONE);
@@ -61,7 +68,10 @@ public class CarRepository
         synchronized (slowLegacyCarRepository)
         {
             logger.log(PROCESSING);
-            cars = slowLegacyCarRepository.getCars(responseDelay);
+            if (cars.isEmpty())
+            {
+                cars = slowLegacyCarRepository.getCars(responseDelay);
+            }
         }
 
         logger.log(DONE);
@@ -71,12 +81,19 @@ public class CarRepository
     public List<Car> getCarsSynchronizedOnSessionMutex(Logger logger, int responseDelay)
     {
         logger.setContext("sessionmutex").log(QUEUED);
-        Object sessionMutex = WebUtils.getSessionMutex(request.getSession());
-
-        synchronized (sessionMutex)
+        HttpSession session = request.getSession(false);
+        if (session != null)
         {
-            logger.log(PROCESSING);
-            cars = slowLegacyCarRepository.getCars(responseDelay);
+            Object sessionMutex = WebUtils.getSessionMutex(session);
+
+            synchronized (sessionMutex)
+            {
+                logger.log(PROCESSING);
+                if (cars.isEmpty())
+                {
+                    cars = slowLegacyCarRepository.getCars(responseDelay);
+                }
+            }
         }
 
         logger.log(DONE);
