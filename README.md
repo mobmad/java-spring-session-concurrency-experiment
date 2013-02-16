@@ -34,6 +34,9 @@ Each run pr. browser (simulated user) is given a new HttpSession. Session will b
  your viewing pleasure. The number behind the status, e.g. QUEUED (716) identifies requests pr. session in order to
  trace them easier.
 
+## Configuration
+Adjust the number of simultaneous requests and response time in [index.jsp](src/main/webapp/index.jsp)
+
 ## Preliminary results
 Instance/autowired seem to work the same and as intended. As the screenshot shows, no more than one
 request is processed in parallell pr. user. Compare this with "no sync" to see the difference. Using sessionmutex
@@ -42,10 +45,14 @@ works most of the time, but randomly fails (at least in Jetty) with one of these
 * java.lang.IllegalStateException: Problem scavenging sessions
 * java.lang.IllegalStateException: No SessionManager
 
-[MORE RESEARCH NEEDED]
+[MORE RESEARCH NEEDED])
 
-## Configuration
-Adjust the number of simultaneous requests and response time in [index.jsp](src/main/webapp/index.jsp)
+## Realated notes (mostly for myself)
+
+* [Clustering vs. Load Balancing – What is the difference?](http://standardwisdom.com/softwarejournal/2009/09/clustering-vs-load-balancing-what-is-the-difference/)
+* [Load balancing with Jetty](http://docs.codehaus.org/display/JETTY/Configuring+mod_proxy) and [Apache mod_proxy / mod_proxy_balancer](http://httpd.apache.org/docs/2.2/mod/mod_proxy_balancer.html)
+* [Unicast vs. multicast](http://stackoverflow.com/questions/4338475/why-use-unicast-versus-multicast-in-weblogic-clusters)
+* [Loan balancing in a cluster (WebLogic)](http://docs.oracle.com/cd/E11035_01/wls100/cluster/load_balancing.html
 
 ## Contributions
 Feedback and pull requests are most welcome :-)
