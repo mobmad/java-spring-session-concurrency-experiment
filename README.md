@@ -52,7 +52,7 @@ works most of the time, but randomly fails (at least in Jetty) with one of these
 * [Clustering vs. Load Balancing – What is the difference?](http://standardwisdom.com/softwarejournal/2009/09/clustering-vs-load-balancing-what-is-the-difference/)
 * [Load balancing with Jetty](http://docs.codehaus.org/display/JETTY/Configuring+mod_proxy) and [Apache mod_proxy / mod_proxy_balancer](http://httpd.apache.org/docs/2.2/mod/mod_proxy_balancer.html)
 * [Unicast vs. multicast](http://stackoverflow.com/questions/4338475/why-use-unicast-versus-multicast-in-weblogic-clusters)
-* [Loan balancing in a cluster](http://docs.oracle.com/cd/E11035_01/wls100/cluster/load_balancing.html
+* [Loan balancing in a cluster](http://docs.oracle.com/cd/E11035_01/wls100/cluster/load_balancing.html)
 
 ## Contributions
 Feedback and pull requests are most welcome :-)
